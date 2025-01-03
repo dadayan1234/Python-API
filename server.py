@@ -7,7 +7,7 @@ import mysql.connector
 db_config = {
     "host": "localhost",
     "user": "root",
-    "password": "password",
+    "password": "",
     "database": "test_db"
 }
 
@@ -93,4 +93,6 @@ def delete_item(item_id: int):
         raise HTTPException(status_code=404, detail="Item not found")
     return {"message": "Item deleted successfully"}
 
-# Run using `uvicorn server:app --reload`
+if __name__ == "__main__":  # Start background task for writing data
+    import uvicorn
+    uvicorn.run("server:app", host="0.0.0.0", port=8000, reload=True)

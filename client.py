@@ -1,49 +1,88 @@
 import requests
-from prettytable import PrettyTable
+import json
 
-API_URL = "http://127.0.0.1:8000/items"
+API_BASE_URL = "http://127.0.0.1:8000"
 
-def print_items(data):
-    table = PrettyTable()
-    table.field_names = ["ID", "Name", "Description", "Price"]
-    for item in data:
-        table.add_row([item["id"], item["name"], item["description"], item["price"]])
-    print(table)
+def print_response(response):
+    """Print response data in a formatted way."""
+    if response.status_code in [200, 201]:
+        print(json.dumps(response.json(), indent=4))
+    else:
+        print(f"Error {response.status_code}: {response.text}")
 
-# Test API
-def test_api():
-    # Create an item
-    print("Creating an item...")
-    payload = {"name": "Laptop", "description": "A high-performance laptop", "price": 1500.0}
-    response = requests.post(API_URL, json=payload)
-    print(response.json())
+def create_item():
+    """Send POST request to create a new item."""
+    print("Enter item details:")
+    name = input("Name: ")
+    description = input("Description: ")
+    price = float(input("Price: "))
+    payload = {
+        "name": name,
+        "description": description,
+        "price": price
+    }
+    response = requests.post(f"{API_BASE_URL}/items", json=payload)
+    print_response(response)
 
-    # Read all items
-    print("\nReading all items...")
-    response = requests.get(API_URL)
-    print_items(response.json())
+def read_all_items():
+    """Send GET request to fetch all items."""
+    response = requests.get(f"{API_BASE_URL}/items")
+    print_response(response)
 
-    # Update an item
-    print("\nUpdating the first item...")
-    first_item = response.json()[0]
-    update_payload = {"name": "Updated Laptop", "description": "Updated description", "price": 1400.0}
-    update_response = requests.put(f"{API_URL}/{first_item['id']}", json=update_payload)
-    print(update_response.json())
+def read_item_by_id():
+    """Send GET request to fetch an item by ID."""
+    item_id = input("Enter item ID: ")
+    response = requests.get(f"{API_BASE_URL}/items/{item_id}")
+    print_response(response)
 
-    # Read specific item
-    print("\nReading the updated item...")
-    response = requests.get(f"{API_URL}/{first_item['id']}")
-    print(response.json())
+def update_item():
+    """Send PUT request to update an item."""
+    item_id = input("Enter item ID to update: ")
+    print("Enter updated details:")
+    name = input("Name: ")
+    description = input("Description: ")
+    price = float(input("Price: "))
+    payload = {
+        "name": name,
+        "description": description,
+        "price": price
+    }
+    response = requests.put(f"{API_BASE_URL}/items/{item_id}", json=payload)
+    print_response(response)
 
-    # Delete an item
-    print("\nDeleting the first item...")
-    delete_response = requests.delete(f"{API_URL}/{first_item['id']}")
-    print(delete_response.json())
+def delete_item():
+    """Send DELETE request to delete an item."""
+    item_id = input("Enter item ID to delete: ")
+    response = requests.delete(f"{API_BASE_URL}/items/{item_id}")
+    print_response(response)
 
-    # Confirm deletion
-    print("\nReading all items after deletion...")
-    response = requests.get(API_URL)
-    print_items(response.json())
+def main():
+    """Main menu for CRUD operations."""
+    while True:
+        print("\nMenu:")
+        print("1. Create Item")
+        print("2. Read All Items")
+        print("3. Read Item by ID")
+        print("4. Update Item")
+        print("5. Delete Item")
+        print("6. Exit")
+        choice = input("Enter your choice: ")
+        
+        if choice == "1":
+            create_item()
+        elif choice == "2":
+            read_all_items()
+        elif choice == "3":
+            read_item_by_id()
+        elif choice == "4":
+            update_item()
+        elif choice == "5":
+            delete_item()
+        elif choice == "6":
+            print("Exiting...")
+            break
+        else:
+            print("Invalid choice. Please try again.")
 
 if __name__ == "__main__":
-    test_api()
+    main()
