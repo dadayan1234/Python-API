@@ -31,7 +31,7 @@ cd <nama-repositori-anda>
 
 ---
 
-### 2️⃣ **Membuat dan Aktivasi Virtual Environment**
+### 2. **Membuat dan Aktivasi Virtual Environment**
 Create a virtual environment and install the necessary dependencies.
 
 ```bash
