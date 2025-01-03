@@ -22,6 +22,7 @@ Aplikasi sederhana menggunakan FastAPI dengan backend MySQL untuk operasi CRUD d
 ## Instalasi dan Setup
 
 ### 1. Clone Repositori
+Repository bisa di clone via URL atau download ZIP file. Disarankan untuk download ZIP File saja.
 ```bash
 git clone https://github.com/<username-anda>/<nama-repositori-anda>.git
 cd <nama-repositori-anda>
@@ -32,15 +33,14 @@ cd <nama-repositori-anda>
 ---
 
 ### 2. **Membuat dan Aktivasi Virtual Environment**
-Create a virtual environment and install the necessary dependencies.
+Salin kode ke windows CMD.
 
 ```bash
-Salin kode
-# Create a virtual environment
+
 python -m venv pyapi
-# Activate the virtual environment
-pyapi\Scripts\activate  # On Windows, use venv\Scripts\activate
-# Install the dependencies
+
+pyapi\Scripts\activate
+
 pip install -r requirements.txt
 ```
 
