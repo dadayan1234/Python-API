@@ -45,3 +45,45 @@ pip install -r requirements.txt
 ```
 
 ---
+
+### 3. **Konfigurasi Database MySQL**
+Buat database MySQL:
+```bash
+CREATE DATABASE test_db;
+USE test_db;
+CREATE TABLE items (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    description TEXT,
+    price FLOAT NOT NULL
+);
+```
+
+---
+
+### 4. **Menjalankan Aplikasi**
+## 1.  *Jalankan Server*
+```bash
+py server.py
+
+```
+API dapat diakses di http://127.0.0.1:8000. Dokumentasi Swagger tersedia di http://127.0.0.1:8000/docs.
+
+---
+
+
+## 2. *Uji API*
+Jalankan client untuk berinteraksi dengan API:
+```bash
+python client.py
+
+```
+Gunakan menu untuk melakukan operasi CRUD:
+
+- Create Item: Tambahkan data baru.
+- Read All Items: Tampilkan semua data.
+- Read Item by ID: Tampilkan data berdasarkan ID.
+- Update Item: Perbarui data berdasarkan ID.
+- Delete Item: Hapus data berdasarkan ID
+
+---
